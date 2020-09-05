@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'images.apps.ImagesConfig',
     'easy_thumbnails',
+    'actions.apps.ActionsConfig',
 ]
 
 MIDDLEWARE = [
@@ -155,3 +157,14 @@ SOCIAL_AUTH_TWITTER_SECRET = '' # Twitter API Secret
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '725527275200-g7j5ir0ltmm3gqj3evo5772j5k28p635.apps.googleusercontent.com' # Google Consumer Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'u0iJ0knRd5yj7uBvTXfg2WpM' # Google Consumer Secret
+
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
+}
+
+# THUMBNAIL_DEBUG = True
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
